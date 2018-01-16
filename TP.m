@@ -5,10 +5,10 @@ clear all;
 global x y
 
 TEST   = 1;		%- TEST=1,2, ou 3
-SCHEMA = 'LLF';	%- SCHEMA='SL' (4 points) - 'SL2' (3points) - 'SL-RK2' - 'LLF'
-%- 'ENO2'
+SCHEMA = 'ENO2';	%- SCHEMA='SL' (4 points) - 'SL2' (3points) - 'SL-RK2' - 'LLF'
+                %- 'ENO2'
 fprintf('TEST=%i, SCHEMA=%s\n', TEST, SCHEMA)
-if SCHEMA == 'LLF'
+if strcmp(SCHEMA,'LLF')
     cx = 1 ; cy = 1;
 end
 
@@ -174,8 +174,8 @@ for n=0:N-1
             Vold(:  ,C+0) = Vbord; Vold(:     ,C+My+1) = Vbord;
             Vold(C-1,:  ) = Vbord; Vold(C+Mx+2,:     ) = Vbord;
             Vold(:  ,C-1) = Vbord; Vold(:     ,C+My+2) = Vbord;
-            uxp = (Vold(3:Mx+2,2:My+1) - Vold(2:Mx+1,2:My+1)) / hx;
-            uxm = (Vold(2:Mx+1,2:My+1) - Vold(1:Mx  ,2:My+1)) / hx;
+            uxp = (Vold(C+(2:Mx+1),C+(1:My)) - Vold(C+(1:Mx  ),C+(1:My))) / hx;
+            uxm = (Vold(C+(1:Mx  ),C+(1:My)) - Vold(C+(0:Mx-1),C+(1:My))) / hx;
             uyp = (Vold(2:Mx+1,3:Mx+2) - Vold(2:Mx+1,2:Mx+1)) / hy;
             uym = (Vold(2:Mx+1,2:Mx+1) - Vold(2:Mx+1,1:Mx  )) / hy;
             g = sqrt(((uxp+uxm)/2).^2+((uyp+uym)/2).^2) -cx/2*(uxp-uxm) -cy/2*(uyp-uym);
